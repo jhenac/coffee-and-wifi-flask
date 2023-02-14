@@ -42,9 +42,18 @@ def add_cafe():
     # Exercise:
     # Make the form write a new row into cafe-data.csv
     # with   if form.validate_on_submit()
+        new_data = [
+            form.cafe.data,
+            form.location.data,
+            form.open.data,
+            form.close.data,
+            form.coffee.data,
+            form.wifi.data,
+            form.power.data
+        ]
         with open('cafe-data.csv', 'a', encoding="utf8") as csv_file:
-            csv_file.write(f"\n{form.cafe.data}, {form.location.data}, {form.open.data}, {form.close.data},"
-                           f"{form.coffee.data}, {form.wifi.data}, {form.power.data}")
+            writer = csv.writer(csv_file, delimiter=',')
+            writer.writerow(new_data)
             return redirect(url_for('cafes'))
     return render_template('add.html', form=form)
 
